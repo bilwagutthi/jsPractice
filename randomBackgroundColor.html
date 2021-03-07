@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Background Color</title>
+    <style>
+        html {
+            width: 100px;
+            height: 100%;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        button {
+            outline:none;
+            color: black;
+            background-color: transparent;
+            height: 15vh;
+            width: 15vw;
+            border-style: solid;
+            border-radius: 15vh;
+            border-width: 1vh;
+            border-color: black;
+            position: absolute;
+            font-size: x-large;
+            font-weight: bolder;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+    </style>
+</head>
+
+<body id="body">
+    <button id="btn">C H A N G E</button>
+    <script>
+        const body = document.getElementById("body")
+        const btn = document.getElementById("btn")
+
+        function getContrast(r, g, b) {
+            let [cr, cg, cb] = [
+                r >= 200 ? (255 - r) + 100 : r + 100,
+                g >= 200 ? (255 - g) + 100 : g + 100,
+                b >= 200 ? (255 - b) + 100 : b + 100
+            ]
+
+            return "rgb(" + cr + "," + cg + "," + cb + ")"
+        }
+
+        function randomColor() {
+            let red = Math.floor(Math.random() * 255)
+            let green = Math.floor(Math.random() * 255)
+            let blue = Math.floor(Math.random() * 255)
+            
+            return ["rgb(" + red + "," + green + "," + blue + ")", getContrast(red, blue, green)]
+        }
+
+        function changeColor(e) {
+            let [newColor, contrastColor] = randomColor()
+            body.style.backgroundColor= newColor
+            btn.style.borderColor= contrastColor
+            btn.style.color= contrastColor
+        }
+
+        btn.addEventListener('click', changeColor)
+    </script>
+</body>
+
+</html>
